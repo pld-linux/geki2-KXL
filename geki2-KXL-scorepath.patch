@@ -1,0 +1,54 @@
+diff -Nur geki2-KXL-2.0.3.orig/configure.in geki2-KXL-2.0.3/configure.in
+--- geki2-KXL-2.0.3.orig/configure.in	2001-10-20 05:06:28.000000000 +0200
++++ geki2-KXL-2.0.3/configure.in	2003-05-10 21:04:16.000000000 +0200
+@@ -29,10 +29,17 @@
+         BMP_PATH=$prefix/share/geki2/bmp
+         WAV_PATH=$prefix/share/geki2/wav
+ fi
++if test "x$localstatedir" = "xNONE"; then
++	SCORE_PATH=/var/games
++else
++	SCORE_PATH=$localstatedir/games
++fi
+ AC_DEFINE_UNQUOTED(DATA_PATH,"$DATA_PATH")
++AC_DEFINE_UNQUOTED(SCORE_PATH,"$SCORE_PATH")
+ AC_DEFINE_UNQUOTED(BMP_PATH,"$BMP_PATH")
+ AC_DEFINE_UNQUOTED(WAV_PATH,"$WAV_PATH")
+ AC_DEFINE_UNQUOTED(TITLE,"$PACKAGE $VERSION")
++AC_SUBST(SCORE_PATH)
+ AC_SUBST(DATA_PATH)
+ AC_SUBST(BMP_PATH)
+ AC_SUBST(WAV_PATH)
+diff -Nur geki2-KXL-2.0.3.orig/data/Makefile.am geki2-KXL-2.0.3/data/Makefile.am
+--- geki2-KXL-2.0.3.orig/data/Makefile.am	2001-08-12 08:33:57.000000000 +0200
++++ geki2-KXL-2.0.3/data/Makefile.am	2003-05-10 21:04:58.000000000 +0200
+@@ -5,5 +5,6 @@
+ 	    map1.dat map2.dat map3.dat map4.dat map5.dat map6.dat .score
+ 
+-install:
+-	$(INSTALL) -c -m 666 ./.score $(DESTDIR)$(DATA_PATH)
++install-data-local:
++	$(INSTALL) -d -m 755 $(DESTDIR)$(SCORE_PATH)
++	$(INSTALL) -c -m 666 ./.score $(DESTDIR)$(SCORE_PATH)/geki2.score
+ 
+diff -Nur geki2-KXL-2.0.3.orig/src/ranking.c geki2-KXL-2.0.3/src/ranking.c
+--- geki2-KXL-2.0.3.orig/src/ranking.c	2001-04-11 15:23:13.000000000 +0200
++++ geki2-KXL-2.0.3/src/ranking.c	2003-05-10 21:04:45.000000000 +0200
+@@ -37,7 +37,7 @@
+   FILE *fp;
+   Uint16 i;
+ 
+-  if ((fp = fopen(DATA_PATH "/.score", "r"))) {
++  if ((fp = fopen(SCORE_PATH "/geki2.score", "r"))) {
+     fscanf(fp, "%d", &(Root->HiScore));
+     for (i = 0; i < 5; i ++)
+       fscanf(fp, "%d %d %d %s",
+@@ -69,7 +69,7 @@
+   FILE *fp;
+   Uint16 i;
+ 
+-  if ((fp = fopen(DATA_PATH "/.score", "w"))) {
++  if ((fp = fopen(SCORE_PATH "/geki2.score", "w"))) {
+     fprintf(fp, "%d\n", Root->HiScore);
+     for (i = 0; i < 5; i ++)
+       fprintf(fp, "%d %d %d %s\n",
