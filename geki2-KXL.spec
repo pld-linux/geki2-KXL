@@ -41,4 +41,4 @@ rm -rf ${RPM_BUILD_ROOT}
 %dir %{_datadir}/geki2/data
 %{_datadir}/geki2/data/*.dat
 #%attr(664,root,games) %config(noreplace) %verify(not size mtime md5) /var/games/geki2.score
-#%{_prefix}/share/geki2/data/.score
+#%%{_prefix}/share/geki2/data/.score
