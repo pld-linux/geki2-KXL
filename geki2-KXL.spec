@@ -1,5 +1,5 @@
 Summary:	Geki2, a video-oriented game
-Summary(pl):	Geki2 - gra wideo
+Summary(pl.UTF-8):   Geki2 - gra wideo
 Name:		geki2-KXL
 Version:	2.0.3
 Release:	1
@@ -19,7 +19,7 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 %description
 2D length scroll shooting game.
 
-%description -l pl
+%description -l pl.UTF-8
 Pionowo przewijana strzelanka 2D, klon raptora.
 
 %prep
