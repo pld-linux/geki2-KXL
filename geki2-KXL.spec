@@ -1,5 +1,5 @@
 Summary:	Geki2, a video-oriented game
-Summary(pl.UTF-8):   Geki2 - gra wideo
+Summary(pl.UTF-8):	Geki2 - gra wideo
 Name:		geki2-KXL
 Version:	2.0.3
 Release:	1
