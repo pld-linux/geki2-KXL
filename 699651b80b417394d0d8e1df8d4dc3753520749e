@@ -1,0 +1,1 @@
+- more macros; TODO: move score to /var/games - writable files cannot be in /usr
